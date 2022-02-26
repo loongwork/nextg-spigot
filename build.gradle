@@ -45,6 +45,10 @@ compileJava {
     options.forkOptions.executable = 'javac'
 }
 
+javadoc {
+    options.encoding = 'UTF-8'
+}
+
 archivesBaseName = project.property("pluginName")
 
 repositories {
