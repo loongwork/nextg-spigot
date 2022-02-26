@@ -6,6 +6,8 @@ import co.aikar.commands.MessageType;
 import co.aikar.commands.annotation.*;
 import co.aikar.locales.MessageKey;
 import net.loongwork.nextg.spigot.Constants;
+import net.loongwork.nextg.spigot.NextGSpigot;
+import net.loongwork.nextg.spigot.utils.PlayerUtils;
 import org.bukkit.Statistic;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -32,7 +34,7 @@ public class TemplateCommands extends BaseCommand {
     @CommandPermission(Constants.INFO_CMD_PERMISSION)
     public void info(@Flags("self") Player player) {
         success("info",
-                "{player}", player.getName(),
+                "{player}", PlayerUtils.getPrefixedName(player),
                 "{play_time}", player.getStatistic(Statistic.PLAY_ONE_MINUTE) + " Minutes"
         );
     }
