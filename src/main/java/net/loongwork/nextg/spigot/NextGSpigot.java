@@ -1,12 +1,11 @@
 package net.loongwork.nextg.spigot;
 
+import co.aikar.commands.BaseCommand;
 import co.aikar.commands.PaperCommandManager;
 import kr.entree.spigradle.annotations.PluginMain;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
-import lombok.val;
+import net.loongwork.nextg.spigot.commands.CommonCommands;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.loongwork.nextg.spigot.commands.TemplateCommands;
@@ -21,6 +20,7 @@ import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -67,6 +67,7 @@ public class NextGSpigot extends JavaPlugin implements Listener {
         }
     }
 
+    @SneakyThrows
     private void setupCommands() {
         commandManager = new PaperCommandManager(this);
         commandManager.enableUnstableAPI("help");
@@ -74,6 +75,7 @@ public class NextGSpigot extends JavaPlugin implements Listener {
         loadCommandLocales(commandManager);
 
         commandManager.registerCommand(new TemplateCommands());
+        commandManager.registerCommand(new CommonCommands());
     }
 
     private void loadCommandLocales(PaperCommandManager commandManager) {
@@ -82,7 +84,7 @@ public class NextGSpigot extends JavaPlugin implements Listener {
             saveResource("lang_zh.yaml", true);
 
             Locale locale;
-            String langConfig = getConfig().getString("locale", "en");
+            String langConfig = getConfig().getString("lang", "en");
             if (langConfig.contains("-")) {
                 String[] langConfigSplit = langConfig.split("-");
                 locale = new Locale(langConfigSplit[0], langConfigSplit[1]);
@@ -90,9 +92,29 @@ public class NextGSpigot extends JavaPlugin implements Listener {
                 locale = new Locale(langConfig);
             }
             commandManager.getLocales().setDefaultLocale(locale);
+            getLogger().info("Using locale: " + locale.getDisplayName());
 
-            commandManager.getLocales().loadYamlLanguageFile("lang_en.yaml", Locale.ENGLISH);
-            commandManager.getLocales().loadYamlLanguageFile("lang_zh.yaml", Locale.SIMPLIFIED_CHINESE);
+            // 加载所有语言文件
+            File langDir = new File(getDataFolder().getPath());
+            File[] langFiles = langDir.listFiles();
+            if (langFiles != null) {
+                for (File langFile : langFiles) {
+                    // if file name match pattern
+                    if (langFile.getName().matches("lang_[a-zA-Z-]+\\.yaml")) {
+                        var langFileLocaleString = langFile.getName().split("_")[1].split("\\.")[0];
+                        Locale langFileLocale;
+                        if (langFileLocaleString.contains("-")) {
+                            String[] langConfigSplit = langFileLocaleString.split("-");
+                            langFileLocale = new Locale(langConfigSplit[0], langConfigSplit[1]);
+                        } else {
+                            langFileLocale = new Locale(langFileLocaleString);
+                        }
+                        commandManager.getLocales().loadYamlLanguageFile(langFile, langFileLocale);
+                        getLogger().info("Loaded language file: " + langFile.getName() + " for locale: " + langFileLocale.getDisplayName());
+                    }
+                }
+            }
+
             // 检测并使用客户端语言（如果可用）
             commandManager.usePerIssuerLocale(true);
         } catch (IOException | InvalidConfigurationException e) {

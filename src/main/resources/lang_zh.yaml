@@ -1,4 +1,9 @@
 commands:
   descriptions:
     info: 'Prints out the players name and play time.'
-  info: 'Your name is: {player}. Playtime: {play_time}.'
+  info: |
+    {plugin_name}
+    当前版本：{plugin_version}
+    适配版本：{plugin_compatibility}
+    兼容协议：{plugin_protocol}
+    {credit}
