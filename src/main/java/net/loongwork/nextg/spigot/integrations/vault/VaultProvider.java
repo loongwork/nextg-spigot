@@ -17,7 +17,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package net.silthus.template.integrations.vault;
+package net.loongwork.nextg.spigot.integrations.vault;
 
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.OfflinePlayer;

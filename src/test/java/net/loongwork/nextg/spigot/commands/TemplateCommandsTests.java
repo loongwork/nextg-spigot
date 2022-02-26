@@ -1,8 +1,8 @@
-package net.silthus.template.commands;
+package net.loongwork.nextg.spigot.commands;
 
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
-import net.silthus.template.Constants;
-import net.silthus.template.TestBase;
+import net.loongwork.nextg.spigot.TestBase;
+import net.loongwork.nextg.spigot.Constants;
 import org.bukkit.Statistic;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

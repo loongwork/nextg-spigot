@@ -1,4 +1,4 @@
-package net.silthus.template;
+package net.loongwork.nextg.spigot;
 
 public final class Constants {
 

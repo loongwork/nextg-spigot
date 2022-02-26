@@ -1,4 +1,4 @@
-package net.silthus.template;
+package net.loongwork.nextg.spigot;
 
 import co.aikar.commands.PaperCommandManager;
 import kr.entree.spigradle.annotations.PluginMain;
@@ -6,10 +6,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
-import net.silthus.template.commands.TemplateCommands;
-import net.silthus.template.integrations.vault.VaultProvider;
+import net.loongwork.nextg.spigot.commands.TemplateCommands;
+import net.loongwork.nextg.spigot.integrations.vault.VaultProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.event.EventHandler;

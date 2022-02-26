@@ -1,4 +1,4 @@
-package net.silthus.template;
+package net.loongwork.nextg.spigot;
 
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,8 @@
-package net.silthus.template.integrations.vault;
+package net.loongwork.nextg.spigot.integrations.vault;
 
 import be.seeseemelk.mockbukkit.entity.PlayerMock;
-import net.silthus.template.TestBase;
+import net.loongwork.nextg.spigot.TestBase;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +25,6 @@ class VaultProviderTest extends TestBase {
     void getPlayerBalance_returnsVaultBalance() {
         when(economy.getBalance(player)).thenReturn(100D);
 
-        assertThat(plugin.getVault().getBalance(player)).isEqualTo(100D);
+        Assertions.assertThat(plugin.getVault().getBalance(player)).isEqualTo(100D);
     }
 }

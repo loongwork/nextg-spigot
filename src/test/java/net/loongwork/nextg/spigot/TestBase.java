@@ -1,9 +1,9 @@
-package net.silthus.template;
+package net.loongwork.nextg.spigot;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import net.milkbowl.vault.economy.Economy;
-import net.silthus.template.integrations.vault.VaultProvider;
+import net.loongwork.nextg.spigot.integrations.vault.VaultProvider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 

@@ -17,11 +17,11 @@ apply from: "$rootDir/gradle/jacoco.gradle"
 apply from: "$rootDir/gradle/publish.gradle"
 
 if (project.hasProperty("local_script")) {
-    apply from: file(local_script + "/build.local.gradle")
+    apply from: file(project.property("local_script") + "/build.local.gradle")
 }
 
-sourceCompatibility = 17
-targetCompatibility = 17
+sourceCompatibility = 16
+targetCompatibility = 16
 
 ext {
     mcVersion = project.property("mcVersion")
@@ -31,7 +31,7 @@ group project.property("group")
 
 spigot {
     name = project.property("pluginName")
-    authors = [project.property("author")]
+    authors = [project.property("author")] as List<String>
     apiVersion = project.property("apiVersion")
     load = STARTUP
     // depends = ['']
@@ -54,15 +54,17 @@ repositories {
     maven { url = 'https://jitpack.io' }
     maven { url = 'https://repo.aikar.co/content/groups/aikar/' }
     maven { url = 'https://repo.dmulloy2.net/repository/public/' }
-    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/public/' }
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/public/' }
     maven { url = 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url = 'https://papermc.io/repo/repository/maven-public/' }
 }
 
 dependencies {
     // using spigot-api
-    implementation spigot(mcVersion)
+    // implementation spigot(mcVersion)
     // or using paper-api
-    // implementation "io.papermc.paper:paper-api:${mcVersion}-R0.1-SNAPSHOT"
+//    implementation "io.papermc.paper:paper-api:${mcVersion}-R0.1-SNAPSHOT"
+    implementation "com.destroystokyo.paper:paper-api:${mcVersion}-R0.1-SNAPSHOT"
 
     // Add your dependencies here
     // Here are some opinionated dependencies that might help you with your plugin development:
@@ -73,10 +75,10 @@ dependencies {
     implementation "com.github.MilkBowl:VaultAPI:1.7.1"
 
     // Test dependencies
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
-    testImplementation 'org.mockito:mockito-core:4.0.0'
-    testImplementation 'com.github.seeseemelk:MockBukkit-v1.17:1.7.0'
-    testImplementation 'org.assertj:assertj-core:3.21.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    testImplementation 'org.mockito:mockito-core:4.3.1'
+    testImplementation 'com.github.seeseemelk:MockBukkit-v1.17:1.13.0'
+    testImplementation 'org.assertj:assertj-core:3.22.0'
 }
 
 shadowJar {
