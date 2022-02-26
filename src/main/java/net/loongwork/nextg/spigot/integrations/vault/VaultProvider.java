@@ -1,41 +1,43 @@
-/*
- * sChat, a Supercharged Minecraft Chat Plugin
- * Copyright (C) Silthus <https://www.github.com/silthus>
- * Copyright (C) sChat team and contributors
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package net.loongwork.nextg.spigot.integrations.vault;
 
+import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.permission.Permission;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 public class VaultProvider {
 
     private final Economy economy;
 
-    public VaultProvider(Economy economy) {
+    private final Chat chat;
+
+    private final Permission permission;
+
+    public VaultProvider(Economy economy, Chat chat, Permission permission) {
         this.economy = economy;
+        this.chat = chat;
+        this.permission = permission;
     }
 
     public VaultProvider() {
         this.economy = null;
+        this.chat = null;
+        this.permission = null;
     }
 
     public double getBalance(OfflinePlayer player) {
         if (economy == null) return 0d;
         return economy.getBalance(player);
+    }
+
+    public String getPlayerPrefix(OfflinePlayer player) {
+        if (chat == null) return "";
+        return chat.getPlayerPrefix("world", player);
+    }
+
+    public String getPlayerPrefix(Player player) {
+        if (chat == null) return "";
+        return chat.getPlayerPrefix("world", player);
     }
 }

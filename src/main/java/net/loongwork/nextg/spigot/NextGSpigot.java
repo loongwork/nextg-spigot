@@ -6,9 +6,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import lombok.val;
+import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.loongwork.nextg.spigot.commands.TemplateCommands;
 import net.loongwork.nextg.spigot.integrations.vault.VaultProvider;
+import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.event.Listener;
@@ -38,8 +41,7 @@ public class NextGSpigot extends JavaPlugin implements Listener {
         instance = this;
     }
 
-    public NextGSpigot(
-            JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
+    public NextGSpigot(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
         super(loader, description, dataFolder, file);
         instance = this;
     }
@@ -54,7 +56,12 @@ public class NextGSpigot extends JavaPlugin implements Listener {
 
     private void setupVaultIntegration() {
         if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
-            vault = new VaultProvider(Objects.requireNonNull(getServer().getServicesManager().getRegistration(Economy.class)).getProvider());
+            val services = getServer().getServicesManager();
+            vault = new VaultProvider(
+                    Objects.requireNonNull(services.getRegistration(Economy.class)).getProvider(),
+                    Objects.requireNonNull(services.getRegistration(Chat.class)).getProvider(),
+                    Objects.requireNonNull(services.getRegistration(Permission.class)).getProvider()
+            );
         } else {
             vault = new VaultProvider();
         }
