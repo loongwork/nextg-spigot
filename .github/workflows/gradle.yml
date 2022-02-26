@@ -1,19 +1,19 @@
 name: Build
-on: [push]
+on: [ push ]
 jobs:
   build:
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     # We want to run on external PRs, but not on our own internal PRs as they'll be run
     # by the push to the branch.
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
 
 
     steps:
-      - name: Set up JDK 17
+      - name: Set up JDK 16
         uses: actions/setup-java@v1
         with:
-          java-version: 17
+          java-version: 16
 
       - name: Cache Gradle
         id: cache-gradle
@@ -39,13 +39,13 @@ jobs:
 
   test:
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Set up JDK 17
+      - name: Set up JDK 16
         uses: actions/setup-java@v1
         with:
-          java-version: 17
+          java-version: 16
 
       - name: Cache Gradle
         id: cache-gradle
@@ -63,7 +63,7 @@ jobs:
         run: ./gradlew test
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: Create Coverage
         run: ./gradlew jacocoTestReport
         env:
@@ -81,16 +81,16 @@ jobs:
           files: "**/build/test-results/**/*.xml"
 
   release:
-    needs: [build, test]
+    needs: [ build, test ]
     if: github.ref == 'refs/heads/master' || 'refs/heads/beta' || github.ref == 'refs/heads/alpha'
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Set up JDK 17
+      - name: Set up JDK 16
         uses: actions/setup-java@v1
         with:
-          java-version: 17
+          java-version: 16
 
       - name: Set up Node.js v16.x
         uses: actions/setup-node@v1
