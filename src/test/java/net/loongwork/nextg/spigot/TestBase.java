@@ -12,13 +12,13 @@ import static org.mockito.Mockito.mock;
 public abstract class TestBase {
 
     protected ServerMock server;
-    protected TemplatePlugin plugin;
+    protected NextGSpigot plugin;
     protected Economy economy;
 
     @BeforeEach
     public void setUp() {
         server = MockBukkit.mock();
-        plugin = MockBukkit.load(TemplatePlugin.class);
+        plugin = MockBukkit.load(NextGSpigot.class);
         mockVaultEconomy();
     }
 

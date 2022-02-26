@@ -24,21 +24,23 @@ import java.util.Locale;
 import java.util.Objects;
 
 @PluginMain
-public class TemplatePlugin extends JavaPlugin implements Listener {
+public class NextGSpigot extends JavaPlugin implements Listener {
 
     @Getter
     @Accessors(fluent = true)
-    private static TemplatePlugin instance;
+    private static NextGSpigot instance;
+
     @Getter
     @Setter(AccessLevel.PACKAGE)
     private VaultProvider vault;
+
     private PaperCommandManager commandManager;
 
-    public TemplatePlugin() {
+    public NextGSpigot() {
         instance = this;
     }
 
-    public TemplatePlugin(
+    public NextGSpigot(
             JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
         super(loader, description, dataFolder, file);
         instance = this;
@@ -76,16 +78,27 @@ public class TemplatePlugin extends JavaPlugin implements Listener {
         commandManager.registerCommand(new TemplateCommands());
     }
 
-    // see https://github.com/aikar/commands/wiki/Locales
     private void loadCommandLocales(PaperCommandManager commandManager) {
         try {
             saveResource("lang_en.yaml", true);
-            commandManager.getLocales().setDefaultLocale(Locale.ENGLISH);
+            saveResource("lang_zh.yaml", true);
+
+            Locale locale;
+            String langConfig = getConfig().getString("locale", "en");
+            if (langConfig.contains("-")) {
+                String[] langConfigSplit = langConfig.split("-");
+                locale = new Locale(langConfigSplit[0], langConfigSplit[1]);
+            } else {
+                locale = new Locale(langConfig);
+            }
+            commandManager.getLocales().setDefaultLocale(locale);
+
             commandManager.getLocales().loadYamlLanguageFile("lang_en.yaml", Locale.ENGLISH);
-            // this will detect the client locale and use it where possible
+            commandManager.getLocales().loadYamlLanguageFile("lang_zh.yaml", Locale.SIMPLIFIED_CHINESE);
+            // 检测并使用客户端语言（如果可用）
             commandManager.usePerIssuerLocale(true);
         } catch (IOException | InvalidConfigurationException e) {
-            getLogger().severe("Failed to load language config 'lang_en.yaml': " + e.getMessage());
+            getLogger().severe("Failed to load language config: " + e.getMessage());
             e.printStackTrace();
         }
     }
