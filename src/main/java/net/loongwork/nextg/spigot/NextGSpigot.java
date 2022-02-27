@@ -1,14 +1,14 @@
 package net.loongwork.nextg.spigot;
 
-import co.aikar.commands.BaseCommand;
+import co.aikar.commands.CommandReplacements;
 import co.aikar.commands.PaperCommandManager;
 import kr.entree.spigradle.annotations.PluginMain;
 import lombok.*;
 import lombok.experimental.Accessors;
-import net.loongwork.nextg.spigot.commands.CommonCommands;
+import me.lucko.helper.Schedulers;
+import net.loongwork.nextg.spigot.commands.NextGCommands;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
-import net.loongwork.nextg.spigot.commands.TemplateCommands;
 import net.loongwork.nextg.spigot.integrations.vault.VaultProvider;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
@@ -20,7 +20,6 @@ import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -52,6 +51,12 @@ public class NextGSpigot extends JavaPlugin implements Listener {
 
         setupVaultIntegration();
         setupCommands();
+
+        getServer().getScheduler().scheduleSyncDelayedTask(this, () -> {
+            getLogger().info("筑龙定制 - NextGSpigot 启动成功");
+            getLogger().info("当前版本: " + getDescription().getVersion());
+            getLogger().info("兼容协议：NextG");
+        });
     }
 
     private void setupVaultIntegration() {
@@ -73,9 +78,9 @@ public class NextGSpigot extends JavaPlugin implements Listener {
         commandManager.enableUnstableAPI("help");
 
         loadCommandLocales(commandManager);
+        loadCommandReplacements(commandManager);
 
-        commandManager.registerCommand(new TemplateCommands());
-        commandManager.registerCommand(new CommonCommands());
+        commandManager.registerCommand(new NextGCommands());
     }
 
     private void loadCommandLocales(PaperCommandManager commandManager) {
@@ -121,5 +126,11 @@ public class NextGSpigot extends JavaPlugin implements Listener {
             getLogger().severe("Failed to load language config: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private void loadCommandReplacements(PaperCommandManager commandManager) {
+        CommandReplacements replacements = commandManager.getCommandReplacements();
+        replacements.addReplacement("log.prefix", "&7[&bNextG&7] ");
+        replacements.addReplacement("command.prefix", "nextg|lw");
     }
 }
