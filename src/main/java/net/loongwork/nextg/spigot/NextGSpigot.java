@@ -54,7 +54,7 @@ public class NextGSpigot extends JavaPlugin implements Listener {
 
         getServer().getScheduler().scheduleSyncDelayedTask(this, () -> {
             getLogger().info("筑龙定制 - NextGSpigot 启动成功");
-            getLogger().info("当前版本: " + getDescription().getVersion());
+            getLogger().info("当前版本：" + getDescription().getVersion());
             getLogger().info("兼容协议：NextG");
         });
     }
@@ -97,7 +97,7 @@ public class NextGSpigot extends JavaPlugin implements Listener {
                 locale = new Locale(langConfig);
             }
             commandManager.getLocales().setDefaultLocale(locale);
-            getLogger().info("Using locale: " + locale.getDisplayName());
+            getLogger().info("全局语言配置：" + locale.getDisplayName());
 
             // 加载所有语言文件
             File langDir = new File(getDataFolder().getPath());
@@ -115,7 +115,7 @@ public class NextGSpigot extends JavaPlugin implements Listener {
                             langFileLocale = new Locale(langFileLocaleString);
                         }
                         commandManager.getLocales().loadYamlLanguageFile(langFile, langFileLocale);
-                        getLogger().info("Loaded language file: " + langFile.getName() + " for locale: " + langFileLocale.getDisplayName());
+                        getLogger().info("%s语言包 %s 已加载".formatted(langFileLocale.getDisplayName(), langFile.getName()));
                     }
                 }
             }
@@ -123,7 +123,7 @@ public class NextGSpigot extends JavaPlugin implements Listener {
             // 检测并使用客户端语言（如果可用）
             commandManager.usePerIssuerLocale(true);
         } catch (IOException | InvalidConfigurationException e) {
-            getLogger().severe("Failed to load language config: " + e.getMessage());
+            getLogger().severe("语言包加载失败：" + e.getMessage());
             e.printStackTrace();
         }
     }
