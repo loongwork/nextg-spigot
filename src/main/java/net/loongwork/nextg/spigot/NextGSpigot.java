@@ -5,8 +5,8 @@ import co.aikar.commands.PaperCommandManager;
 import kr.entree.spigradle.annotations.PluginMain;
 import lombok.*;
 import lombok.experimental.Accessors;
-import me.lucko.helper.Schedulers;
 import net.loongwork.nextg.spigot.commands.NextGCommands;
+import net.loongwork.nextg.spigot.whitelist.Whitelist;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.loongwork.nextg.spigot.integrations.vault.VaultProvider;
@@ -59,6 +59,11 @@ public class NextGSpigot extends JavaPlugin implements Listener {
         });
     }
 
+    @Override
+    public void onDisable() {
+        Whitelist.shutdown();
+    }
+
     private void setupVaultIntegration() {
         if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
             val services = getServer().getServicesManager();
@@ -72,7 +77,6 @@ public class NextGSpigot extends JavaPlugin implements Listener {
         }
     }
 
-    @SneakyThrows
     private void setupCommands() {
         commandManager = new PaperCommandManager(this);
         commandManager.enableUnstableAPI("help");
@@ -132,5 +136,10 @@ public class NextGSpigot extends JavaPlugin implements Listener {
         CommandReplacements replacements = commandManager.getCommandReplacements();
         replacements.addReplacement("log.prefix", "&7[&bNextG&7] ");
         replacements.addReplacement("command.prefix", "nextg|lw");
+    }
+
+    private void loadCommandConditions(PaperCommandManager commandManager) {
+        val conditions = commandManager.getCommandConditions();
+//        conditions.addCondition(Player.class, "online")
     }
 }

@@ -1,9 +1,20 @@
 commands:
   descriptions:
-    info: 'Prints out the players name and play time.'
+    info: 查看插件信息
+    whitelist:
+      add: 将玩家加入白名单
+      remove: 将玩家从白名单中移除
+      list: 列出白名单中的所有玩家
+      reload: 重新加载白名单
+
   info: |
     {plugin_name}
     当前版本：{plugin_version}
     适配版本：{plugin_compatibility}
     兼容协议：{plugin_protocol}
     {credit}
+  whitelist:
+    add: 已将 {player} 加入白名单
+    remove: 已将 {player} 从白名单中移除
+    list: 白名单中的玩家有：{player_list}
+    reload: 已重新加载白名单
