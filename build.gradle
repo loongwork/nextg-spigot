@@ -34,7 +34,7 @@ spigot {
     authors = [project.property("author")] as List<String>
     apiVersion = project.property("apiVersion")
     load = STARTUP
-    // depends = ['']
+    depends = ['helper']
     softDepends = ['Vault']
 }
 
@@ -54,13 +54,14 @@ archivesBaseName = project.property("pluginName")
 repositories {
     mavenLocal()
     mavenCentral()
-    spigot()
     maven { url = 'https://jitpack.io' }
     maven { url = 'https://repo.aikar.co/content/groups/aikar/' }
     maven { url = 'https://repo.dmulloy2.net/repository/public/' }
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
     maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/public/' }
     maven { url = 'https://oss.sonatype.org/content/repositories/snapshots/' }
     maven { url = 'https://papermc.io/repo/repository/maven-public/' }
+    maven { url = 'https://repo.lucko.me/' }
 }
 
 dependencies {
@@ -72,6 +73,7 @@ dependencies {
 
     // Add your dependencies here
     // Here are some opinionated dependencies that might help you with your plugin development:
+    implementation "me.lucko:helper:5.6.9"
 
     // Annotation Command Framework: https://github.com/aikar/commands
     implementation "co.aikar:acf-paper:0.5.0-SNAPSHOT"
