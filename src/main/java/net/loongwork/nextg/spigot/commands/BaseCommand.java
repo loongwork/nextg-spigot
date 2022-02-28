@@ -1,10 +1,7 @@
 package net.loongwork.nextg.spigot.commands;
 
-import co.aikar.commands.MessageType;
-import co.aikar.locales.MessageKey;
 import net.loongwork.nextg.spigot.Constants;
 import net.loongwork.nextg.spigot.utils.I18NUtils;
-import org.bukkit.entity.Player;
 
 public class BaseCommand extends co.aikar.commands.BaseCommand {
     static String key(String key) {

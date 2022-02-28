@@ -32,6 +32,15 @@ public class NextGCommands extends BaseCommand {
         );
     }
 
+    @Subcommand("reload")
+    @Description("{@@commands.descriptions.reload}")
+    @CommandPermission(Constants.PERMISSION_ADMIN)
+    public void reload() {
+        NextGSpigot.instance().reloadConfig();
+        Whitelist.reload();
+        reply("reload");
+    }
+
     @Subcommand("whitelist|wl")
     @CommandPermission(Constants.PERMISSION_ADMIN)
     public class WhitelistCommand extends BaseCommand {

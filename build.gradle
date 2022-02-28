@@ -39,7 +39,7 @@ spigot {
 }
 
 downloadPaper {
-    source = 'https://papermc.io/api/v2/projects/paper/versions/1.16.5/builds/794/downloads/paper-1.16.5-794.jar'
+    source.set('https://papermc.io/api/v2/projects/paper/versions/1.16.5/builds/794/downloads/paper-1.16.5-794.jar')
 }
 
 compileJava {
@@ -95,7 +95,7 @@ shadowJar {
     archiveClassifier.set('')
     minimize()
     dependencies {
-        include(dependency('co.aikar:acf-paper:0.5.0-SNAPSHOT'))
+        include(dependency('co.aikar:acf-paper:0.5.1-SNAPSHOT'))
     }
     relocate 'co.aikar.commands', "${packageName}.acf"
     relocate 'co.aikar.locales', "${packageName}.locales"

@@ -5,9 +5,15 @@ whitelist:
   visitor-mode-desc: <warn>访客模式下，您只能进行有限的互动，大部分操作将无法进行
   kick-for-refresh: <info>您的白名单状态发生了变更，请重新加入
 
+anti-dummy:
+  kick-by-throttle: <warn>近期登录人数过多，请稍后再试
+  kick-too-many-attempts: <warn>您的登录尝试次数过多，请稍后再试
+  kick-strict-mode: <warn>服务器已启用严格模式，仅允许白名单用户登录
+
 commands:
   descriptions:
     info: 查看插件信息
+    reload: 重载插件
     whitelist:
       add: 将玩家加入白名单
       remove: 将玩家从白名单中移除
@@ -20,6 +26,7 @@ commands:
     适配版本：{plugin_compatibility}
     兼容协议：{plugin_protocol}
     {credit}
+  reload: <info>插件重载完毕
   whitelist:
     add: <info>已将 {player} 加入白名单
     remove: <info>已将 {player} 从白名单中移除

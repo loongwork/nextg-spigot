@@ -4,3 +4,5 @@ colors:
   info: '&9'
   warn: '&e'
   error: '&c'
+anti-dummy:
+  strict: true
