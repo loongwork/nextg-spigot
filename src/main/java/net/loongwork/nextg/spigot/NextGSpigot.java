@@ -6,6 +6,7 @@ import kr.entree.spigradle.annotations.PluginMain;
 import lombok.*;
 import lombok.experimental.Accessors;
 import net.loongwork.nextg.spigot.commands.NextGCommands;
+import net.loongwork.nextg.spigot.listeners.AntiDummyListener;
 import net.loongwork.nextg.spigot.listeners.WhitelistListener;
 import net.loongwork.nextg.spigot.models.User;
 import net.loongwork.nextg.spigot.utils.I18NUtils;
@@ -82,6 +83,7 @@ public class NextGSpigot extends JavaPlugin implements Listener {
 
     private void setupListeners() {
         getServer().getPluginManager().registerEvents(new WhitelistListener(), this);
+        getServer().getPluginManager().registerEvents(new AntiDummyListener(), this);
     }
 
     private void setupCommands() {
