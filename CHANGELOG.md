@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/loongwork/nextg-spigot/compare/v1.0.0...v1.1.0) (2022-02-28)
+
+
+### Features
+
+* add user model ([dc37e7d](https://github.com/loongwork/nextg-spigot/commit/dc37e7d60d676710f2e699ad87fbdbeea4564143))
+* add visitor system ([e6b9b07](https://github.com/loongwork/nextg-spigot/commit/e6b9b078eea5c104df21293d4e3c8202d5f7594f))
+* complete whitelist system ([09c0f21](https://github.com/loongwork/nextg-spigot/commit/09c0f21c0e3f40868227d8b466416fa9c24a9f45))
+
 # 1.0.0 (2022-02-27)
 
 
