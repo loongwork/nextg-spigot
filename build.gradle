@@ -78,7 +78,6 @@ dependencies {
     // Add your dependencies here
     // Here are some opinionated dependencies that might help you with your plugin development:
     implementation "me.lucko:helper:5.6.9"
-    implementation "net.kyori:adventure-api:4.9.3"
 
     // Annotation Command Framework: https://github.com/aikar/commands
     implementation "co.aikar:acf-paper:0.5.0-SNAPSHOT"
@@ -93,7 +92,8 @@ dependencies {
 }
 
 shadowJar {
-    classifier = ''
+    archiveClassifier.set('')
+    minimize()
     dependencies {
         include(dependency('co.aikar:acf-paper:0.5.0-SNAPSHOT'))
     }
