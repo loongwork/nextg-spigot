@@ -1,8 +1,8 @@
 whitelist:
-  kick: 您不在白名单中
-  interact-blocked: 抱歉，您目前处于访客模式，无法进行任何互动
-  join-as-visitor: 您正在以访客身份进行游玩
-  visitor-mode-desc: 访客模式下，您只能进行有限的互动，大部分操作将无法进行
+  kick: <warn>您不在白名单中
+  interact-blocked: <warn>抱歉，您目前处于访客模式，无法进行任何互动
+  join-as-visitor: <warn>您正在以访客身份进行游玩
+  visitor-mode-desc: <warn>访客模式下，您只能进行有限的互动，大部分操作将无法进行
 
 commands:
   descriptions:
@@ -20,7 +20,7 @@ commands:
     兼容协议：{plugin_protocol}
     {credit}
   whitelist:
-    add: 已将 {player} 加入白名单
-    remove: 已将 {player} 从白名单中移除
+    add: <info>已将 {player} 加入白名单
+    remove: <info>已将 {player} 从白名单中移除
     list: 白名单中的玩家有：{player_list}
-    reload: 已重新加载白名单
+    reload: <info>已重新加载白名单
