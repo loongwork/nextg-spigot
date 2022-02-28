@@ -1,12 +1,11 @@
 package net.loongwork.nextg.spigot.commands;
 
 import co.aikar.commands.CommandHelp;
-import co.aikar.commands.CommandManager;
 import co.aikar.commands.annotation.*;
 import lombok.val;
 import net.loongwork.nextg.spigot.Constants;
 import net.loongwork.nextg.spigot.NextGSpigot;
-import net.loongwork.nextg.spigot.utils.I18NUtils;
+import net.loongwork.nextg.spigot.models.User;
 import net.loongwork.nextg.spigot.whitelist.Whitelist;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -24,7 +23,7 @@ public class NextGCommands extends BaseCommand {
     @Description("{@@commands.descriptions.info}")
     public void info() {
         val pluginDescription = NextGSpigot.instance().getDescription();
-        success("info",
+        reply("info",
                 "{plugin_name}", pluginDescription.getName(),
                 "{plugin_version}", pluginDescription.getVersion(),
                 "{plugin_compatibility}", pluginDescription.getAPIVersion(),
@@ -43,7 +42,7 @@ public class NextGCommands extends BaseCommand {
         @CommandCompletion("@players")
         public void add(CommandSender sender, @Flags("other") Player player) {
             Whitelist.addPlayer(player);
-            success("whitelist.add", "{player}", player.getName());
+            reply("whitelist.add", "{player}", player.getName());
         }
 
         @Subcommand("remove")
@@ -51,21 +50,22 @@ public class NextGCommands extends BaseCommand {
         @CommandCompletion("@players")
         public void remove(CommandSender sender, @Flags("other") Player player) {
             Whitelist.removePlayer(player);
-            success("whitelist.remove", "{player}", player.getName());
+            reply("whitelist.remove", "{player}", player.getName());
         }
 
         @Subcommand("list")
         @Description("{@@commands.descriptions.whitelist.list}")
         @Private
         public void list(CommandSender sender) {
-            success("whitelist.list");
+            sender.sendMessage(User.get((Player) sender).username());
+            reply("whitelist.list");
         }
 
         @Subcommand("reload")
         @Description("{@@commands.descriptions.whitelist.reload}")
         public void reload(CommandSender sender) {
             Whitelist.reload();
-            success("whitelist.reload");
+            reply("whitelist.reload");
         }
     }
 }
