@@ -2,10 +2,13 @@ package net.loongwork.nextg.spigot;
 
 import co.aikar.commands.CommandReplacements;
 import co.aikar.commands.PaperCommandManager;
+import com.google.common.reflect.ClassPath;
 import kr.entree.spigradle.annotations.PluginMain;
 import lombok.*;
 import lombok.experimental.Accessors;
 import net.loongwork.nextg.spigot.commands.NextGCommands;
+import net.loongwork.nextg.spigot.listeners.WhitelistListener;
+import net.loongwork.nextg.spigot.utils.I18NUtils;
 import net.loongwork.nextg.spigot.whitelist.Whitelist;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
@@ -20,6 +23,7 @@ import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -34,6 +38,7 @@ public class NextGSpigot extends JavaPlugin implements Listener {
     @Setter(AccessLevel.PACKAGE)
     private VaultProvider vault;
 
+    @Getter
     private PaperCommandManager commandManager;
 
     public NextGSpigot() {
@@ -50,6 +55,7 @@ public class NextGSpigot extends JavaPlugin implements Listener {
         saveDefaultConfig();
 
         setupVaultIntegration();
+        setupListeners();
         setupCommands();
 
         getServer().getScheduler().scheduleSyncDelayedTask(this, () -> {
@@ -67,14 +73,14 @@ public class NextGSpigot extends JavaPlugin implements Listener {
     private void setupVaultIntegration() {
         if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
             val services = getServer().getServicesManager();
-            vault = new VaultProvider(
-                    Objects.requireNonNull(services.getRegistration(Economy.class)).getProvider(),
-                    Objects.requireNonNull(services.getRegistration(Chat.class)).getProvider(),
-                    Objects.requireNonNull(services.getRegistration(Permission.class)).getProvider()
-            );
+            vault = new VaultProvider(Objects.requireNonNull(services.getRegistration(Economy.class)).getProvider(), Objects.requireNonNull(services.getRegistration(Chat.class)).getProvider(), Objects.requireNonNull(services.getRegistration(Permission.class)).getProvider());
         } else {
             vault = new VaultProvider();
         }
+    }
+
+    private void setupListeners() {
+        getServer().getPluginManager().registerEvents(new WhitelistListener(), this);
     }
 
     private void setupCommands() {
@@ -101,6 +107,7 @@ public class NextGSpigot extends JavaPlugin implements Listener {
                 locale = new Locale(langConfig);
             }
             commandManager.getLocales().setDefaultLocale(locale);
+            I18NUtils.setGlobalLocale(locale);
             getLogger().info("全局语言配置：" + locale.getDisplayName());
 
             // 加载所有语言文件

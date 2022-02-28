@@ -5,10 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class WhitelistRepo {
 
@@ -16,69 +13,59 @@ public class WhitelistRepo {
 
     private final YamlConfiguration config;
 
-    private final Map<UUID, WhitelistUser> players;
+    private final Map<String, WhitelistUser> whitelistUsers;
 
     public WhitelistRepo() {
         this.file = new File(NextGSpigot.instance().getDataFolder(), "whitelist.yml");
         this.config = YamlConfiguration.loadConfiguration(this.file);
-        this.players = new java.util.HashMap<>();
+        this.whitelistUsers = new java.util.HashMap<>();
         load();
     }
 
     public void add(WhitelistUser user) {
-        players.put(user.uuid(), user);
+        whitelistUsers.put(user.username(), user);
     }
 
     public void remove(WhitelistUser user) {
-        players.remove(user.uuid());
+        remove(user.username());
     }
 
-    public void remove(UUID uuid) {
-        players.remove(uuid);
+    public void remove(String username) {
+        whitelistUsers.remove(username);
     }
 
-    public WhitelistUser get(UUID uuid) {
-        return players.get(uuid);
+    public WhitelistUser get(String username) {
+        return whitelistUsers.get(username);
     }
 
     public void load() {
-        List<String> uuids = new ArrayList<>();
-
-        if (config.contains("uuids")) {
-            uuids.addAll(config.getStringList("uuids"));
+        List<String> usernames;
+        if (config.contains("whitelist")) {
+            usernames = new ArrayList<>(config.getStringList("whitelist"));
+        } else {
+            usernames = new ArrayList<>();
         }
 
-        for (String uuidString : uuids) {
-            try {
-                UUID uuid = UUID.fromString(uuidString);
-                String username = config.getString(uuidString + ".username");
-                String type = config.getString(uuidString + ".type");
-                long timestamp = config.getLong(uuidString + ".timestamp");
-
-                add(new WhitelistUser(uuid, username, type, timestamp));
-            } catch (Exception ignored) {
-            }
+        for (String username : usernames) {
+            WhitelistUser user = new WhitelistUser(UUID.fromString(Objects.requireNonNull(config.getString(username + ".uuid"))), config.getString(username + ".username"), config.getString(username + ".type"), config.getLong(username + ".timestamp"));
+            add(user);
         }
     }
 
     public void save() {
-        for (UUID uuid : players.keySet()) {
+        for (String username : whitelistUsers.keySet()) {
 
-            WhitelistUser user = players.get(uuid);
+            WhitelistUser user = whitelistUsers.get(username);
 
-            config.set(uuid + ".uuid", uuid.toString());
-            config.set(uuid + ".username", user.username());
-            config.set(uuid + ".type", user.type());
-            config.set(uuid + ".timestamp", user.timestamp());
+            config.set(username + ".uuid", user.uuid().toString());
+            config.set(username + ".username", user.username());
+            config.set(username + ".type", user.type());
+            config.set(username + ".timestamp", user.timestamp());
         }
 
-        List<String> uuids = new ArrayList<>();
+        List<String> usernames = new ArrayList<>(whitelistUsers.keySet());
 
-        for (UUID uuid : players.keySet()) {
-            uuids.add(uuid.toString());
-        }
-
-        config.set("uuids", uuids);
+        config.set("whitelist", usernames);
 
         try {
             config.save(file);

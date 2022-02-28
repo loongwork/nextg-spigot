@@ -38,6 +38,10 @@ spigot {
     softDepends = ['Vault']
 }
 
+downloadPaper {
+    source = 'https://papermc.io/api/v2/projects/paper/versions/1.16.5/builds/794/downloads/paper-1.16.5-794.jar'
+}
+
 compileJava {
     options.encoding = 'UTF-8'
     options.compilerArgs += ["-parameters"]
@@ -74,6 +78,7 @@ dependencies {
     // Add your dependencies here
     // Here are some opinionated dependencies that might help you with your plugin development:
     implementation "me.lucko:helper:5.6.9"
+    implementation "net.kyori:adventure-api:4.9.3"
 
     // Annotation Command Framework: https://github.com/aikar/commands
     implementation "co.aikar:acf-paper:0.5.0-SNAPSHOT"
