@@ -3,6 +3,7 @@ whitelist:
   interact-blocked: <warn>抱歉，您目前处于访客模式，无法进行任何互动
   join-as-visitor: <warn>您正在以访客身份进行游玩
   visitor-mode-desc: <warn>访客模式下，您只能进行有限的互动，大部分操作将无法进行
+  kick-for-refresh: <info>您的白名单状态发生了变更，请重新加入
 
 commands:
   descriptions:

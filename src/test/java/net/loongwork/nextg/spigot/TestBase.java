@@ -24,7 +24,7 @@ public abstract class TestBase {
 
     private void mockVaultEconomy() {
         economy = mock(Economy.class);
-        plugin.setVault(new VaultProvider(economy));
+//        plugin.setVault(new VaultProvider(economy));
     }
 
     @AfterEach

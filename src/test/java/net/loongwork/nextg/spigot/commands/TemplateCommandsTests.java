@@ -19,7 +19,7 @@ public class TemplateCommandsTests extends TestBase {
         super.setUp();
 
         player = server.addPlayer();
-        player.addAttachment(plugin, Constants.INFO_CMD_PERMISSION, true);
+//        player.addAttachment(plugin, Constants.INFO_CMD_PERMISSION, true);
     }
 
     @Test

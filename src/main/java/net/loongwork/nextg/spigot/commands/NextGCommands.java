@@ -33,7 +33,6 @@ public class NextGCommands extends BaseCommand {
     }
 
     @Subcommand("whitelist|wl")
-    @Description("xxx")
     @CommandPermission(Constants.PERMISSION_ADMIN)
     public class WhitelistCommand extends BaseCommand {
 

@@ -1,5 +1,6 @@
 package net.loongwork.nextg.spigot.whitelist;
 
+import net.loongwork.nextg.spigot.utils.I18NUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -13,10 +14,16 @@ public class Whitelist {
 
     public static void addPlayer(Player player) {
         whitelistRepo.add(new WhitelistUser(player.getUniqueId(), player.getName(), "manual", System.currentTimeMillis()));
+        if (player.isOnline()) {
+            player.kick(I18NUtils.getMessageComponent("whitelist.kick-for-refresh"));
+        }
     }
 
     public static void removePlayer(Player player) {
         whitelistRepo.remove(player.getName());
+        if (player.isOnline()) {
+            player.kick(I18NUtils.getMessageComponent("whitelist.kick-for-refresh"));
+        }
     }
 
     public static boolean containsPlayer(Player player) {

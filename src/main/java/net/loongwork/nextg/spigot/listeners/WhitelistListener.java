@@ -1,5 +1,6 @@
 package net.loongwork.nextg.spigot.listeners;
 
+import com.google.common.util.concurrent.RateLimiter;
 import me.lucko.helper.Schedulers;
 import me.lucko.helper.metadata.Metadata;
 import net.loongwork.nextg.spigot.Constants;
@@ -25,6 +26,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 public class WhitelistListener implements Listener {
+
+    private final RateLimiter rateLimiter = RateLimiter.create(1.0);
 
     @EventHandler
     public void onAsyncPlayerPreLoginEvent(AsyncPlayerPreLoginEvent event) {
@@ -68,7 +71,9 @@ public class WhitelistListener implements Listener {
         }
 
         if (User.get(player).isVisitor()) {
-            player.sendMessage(I18NUtils.getMessageComponent("whitelist.interact-blocked"));
+            if (rateLimiter.tryAcquire()) {
+                player.sendMessage(I18NUtils.getMessageComponent("whitelist.interact-blocked"));
+            }
             return true;
         } else {
             return false;
