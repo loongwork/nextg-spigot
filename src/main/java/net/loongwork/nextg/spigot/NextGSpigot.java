@@ -2,12 +2,12 @@ package net.loongwork.nextg.spigot;
 
 import co.aikar.commands.CommandReplacements;
 import co.aikar.commands.PaperCommandManager;
-import com.google.common.reflect.ClassPath;
 import kr.entree.spigradle.annotations.PluginMain;
 import lombok.*;
 import lombok.experimental.Accessors;
 import net.loongwork.nextg.spigot.commands.NextGCommands;
 import net.loongwork.nextg.spigot.listeners.WhitelistListener;
+import net.loongwork.nextg.spigot.models.User;
 import net.loongwork.nextg.spigot.utils.I18NUtils;
 import net.loongwork.nextg.spigot.whitelist.Whitelist;
 import net.milkbowl.vault.chat.Chat;
@@ -23,7 +23,6 @@ import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -53,6 +52,8 @@ public class NextGSpigot extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+
+        User.init();
 
         setupVaultIntegration();
         setupListeners();

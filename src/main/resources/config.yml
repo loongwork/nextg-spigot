@@ -1,2 +1,6 @@
 # add your configuration properties here
 lang: zh
+colors:
+  info: '&9'
+  warn: '&e'
+  error: '&c'
