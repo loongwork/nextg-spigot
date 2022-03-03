@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/loongwork/nextg-spigot/compare/v1.1.0...v1.2.0) (2022-02-28)
+
+
+### Features
+
+* add anti-dummy feature ([d01d540](https://github.com/loongwork/nextg-spigot/commit/d01d5402f89bd36e50549e643d87d58fa5151da6))
+* add reload command ([2610971](https://github.com/loongwork/nextg-spigot/commit/2610971534e1347bab43d8958828f823aa01066d))
+
 # [1.1.0](https://github.com/loongwork/nextg-spigot/compare/v1.0.0...v1.1.0) (2022-02-28)
 
 
