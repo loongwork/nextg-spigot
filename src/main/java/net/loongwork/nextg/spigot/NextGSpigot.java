@@ -55,6 +55,9 @@ public class NextGSpigot extends JavaPlugin implements Listener {
         saveDefaultConfig();
 
         User.init();
+        Whitelist.init();
+
+//        SocketClient.getInstance().create();
 
         setupVaultIntegration();
         setupListeners();
@@ -64,12 +67,14 @@ public class NextGSpigot extends JavaPlugin implements Listener {
             getLogger().info("筑龙定制 - NextGSpigot 启动成功");
             getLogger().info("当前版本：" + getDescription().getVersion());
             getLogger().info("兼容协议：NextG");
+//            SocketClient.getInstance().sendPacket(new NotifyPacket("server.start"));
         });
     }
 
     @Override
     public void onDisable() {
         Whitelist.shutdown();
+//        SocketClient.getInstance().close();
     }
 
     private void setupVaultIntegration() {
@@ -146,10 +151,5 @@ public class NextGSpigot extends JavaPlugin implements Listener {
         CommandReplacements replacements = commandManager.getCommandReplacements();
         replacements.addReplacement("log.prefix", "&7[&bNextG&7] ");
         replacements.addReplacement("command.prefix", "nextg|lw");
-    }
-
-    private void loadCommandConditions(PaperCommandManager commandManager) {
-        val conditions = commandManager.getCommandConditions();
-//        conditions.addCondition(Player.class, "online")
     }
 }

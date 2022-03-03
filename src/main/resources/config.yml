@@ -4,5 +4,7 @@ colors:
   info: '&9'
   warn: '&e'
   error: '&c'
+whitelist:
+  remote: false
 anti-dummy:
-  strict: true
+  strict: false

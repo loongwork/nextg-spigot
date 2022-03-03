@@ -20,10 +20,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.*;
 
 public class WhitelistListener implements Listener {
 
@@ -35,7 +32,7 @@ public class WhitelistListener implements Listener {
             return;
         }
 
-        if (Whitelist.containsPlayer(event.getName())) {
+        if (Whitelist.containsPlayer(event.getUniqueId())) {
             return;
         }
 
@@ -52,6 +49,11 @@ public class WhitelistListener implements Listener {
                 MessageUtils.ActionBar.showUntil(event.getPlayer(), "whitelist.join-as-visitor", () -> !User.get(event.getPlayer()).isVisitor());
             }, 60L);
         }
+    }
+
+    @EventHandler
+    public void onPlayerQuitEven(PlayerQuitEvent event) {
+        Whitelist.cleanPlayer(event.getPlayer().getUniqueId());
     }
 
     private boolean shouldBeCancel(Entity entity) {
