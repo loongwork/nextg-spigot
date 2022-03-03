@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/loongwork/nextg-spigot/compare/v1.2.0...v1.3.0) (2022-03-03)
+
+
+### Features
+
+* add remote whitelist support and prepare for realtime communication ([0cb26b7](https://github.com/loongwork/nextg-spigot/commit/0cb26b7d1aafb7716996b0be0e6474bd564b16ef))
+
 # [1.2.0](https://github.com/loongwork/nextg-spigot/compare/v1.1.0...v1.2.0) (2022-02-28)
 
 
