@@ -65,7 +65,6 @@ public class NextGCommands extends BaseCommand {
         @Description("{@@commands.descriptions.whitelist.list}")
         @Private
         public void list(CommandSender sender) {
-            sender.sendMessage(User.get((Player) sender).username());
             reply("whitelist.list");
         }
 
