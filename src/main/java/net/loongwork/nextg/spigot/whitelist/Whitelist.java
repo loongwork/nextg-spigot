@@ -9,6 +9,7 @@ import net.loongwork.nextg.spigot.NextGSpigot;
 import net.loongwork.nextg.spigot.transport.HttpClient;
 import net.loongwork.nextg.spigot.utils.I18NUtils;
 import net.loongwork.nextg.spigot.utils.PlayerUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -72,7 +73,10 @@ public class Whitelist {
                                 NextGSpigot.instance().getLogger().warning("远程白名单不可用，回退至本地白名单");
                             }
                         }
-                        return whitelistRepo.get(key) != null;
+                        if (whitelistRepo.get(key) != null) {
+                            return true;
+                        }
+                        return Bukkit.getWhitelistedPlayers().contains(Bukkit.getOfflinePlayer(key));
                     }
                 });
     }
