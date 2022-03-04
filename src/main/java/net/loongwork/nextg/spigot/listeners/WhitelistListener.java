@@ -21,10 +21,29 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.event.server.ServerCommandEvent;
 
 public class WhitelistListener implements Listener {
 
     private final RateLimiter rateLimiter = RateLimiter.create(1.0);
+
+    @EventHandler
+    public void onPlayerCommandPreprocessEvent(PlayerCommandPreprocessEvent event) {
+        // 覆写原生 /whitelist
+        System.out.println(event.getMessage());
+        if (event.getMessage().matches("/whitelist.*")) {
+            event.setMessage(event.getMessage().replaceFirst("/whitelist", "/lw wl"));
+        }
+    }
+
+    @EventHandler
+    public void onServerCommandEvent(ServerCommandEvent event) {
+        // 覆写原生 /whitelist
+        System.out.println(event.getCommand());
+        if (event.getCommand().matches("whitelist.*")) {
+            event.setCommand(event.getCommand().replaceFirst("whitelist", "lw wl"));
+        }
+    }
 
     @EventHandler
     public void onAsyncPlayerPreLoginEvent(AsyncPlayerPreLoginEvent event) {
