@@ -1,3 +1,16 @@
+# [1.4.0](https://github.com/loongwork/nextg-spigot/compare/v1.3.0...v1.4.0) (2022-03-04)
+
+
+### Bug Fixes
+
+* remove debug code ([73f8ed1](https://github.com/loongwork/nextg-spigot/commit/73f8ed1554bf9c8f169d8de4802a8ddc12cd8a7d))
+
+
+### Features
+
+* allow raw whitelist store to be used ([65907c7](https://github.com/loongwork/nextg-spigot/commit/65907c70ac2fcf9c4bbb42c5dfb2909470a73edc))
+* replace vanilla whitelist command ([f3d4419](https://github.com/loongwork/nextg-spigot/commit/f3d441917b597488fc5719ab56173f5d934ea843))
+
 # [1.3.0](https://github.com/loongwork/nextg-spigot/compare/v1.2.0...v1.3.0) (2022-03-03)
 
 
